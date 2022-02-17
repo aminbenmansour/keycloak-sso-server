@@ -6,7 +6,7 @@ import { KeycloakService } from "keycloak-angular";
 import { fromPromise } from "rxjs/internal-compatibility";
 import { mergeMap } from "rxjs/operators";
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class BearerInterceptor implements HttpInterceptor {
     constructor(private keycloak: KeycloakService) {
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
