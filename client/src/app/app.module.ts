@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { initializer } from '../utils/initializer';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BearerInterceptor } from 'src/utils/authentication-interceptor';
 
 let keycloakService: KeycloakService = new KeycloakService();
 @NgModule({
@@ -22,11 +23,20 @@ let keycloakService: KeycloakService = new KeycloakService();
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BearerInterceptor,
+      multi: true
+    },
+    {
+      provide: KeycloakService,
+      useValue: keycloakService
+    },
+    {
       provide: APP_INITIALIZER,
       useFactory: initializer,
-      deps: [ KeycloakService ],
+      deps: [KeycloakService],
       multi: true
-      }
+    }
   ],
   bootstrap: [AppComponent]
 })
