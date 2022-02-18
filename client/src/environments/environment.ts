@@ -3,7 +3,7 @@ export const environment = {
   envName: 'local',
   keycloak: {
     issuer: 'http://localhost:8080/auth/',
-    realm: 'heroes',
+    realm: 'sso-server',
     clientId: 'frontend',
     }
   };
